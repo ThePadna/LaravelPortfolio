@@ -1,0 +1,94 @@
+/* General Styles */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #121212;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+h1 { margin-bottom: 20px; }
+
+/* Home Button */
+.home-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+.home-btn:hover { background: #45a049; }
+
+/* Contact Section */
+.contact-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+/* Chat Box */
+.chat-container, .contact-form {
+    flex: 1;
+    min-width: 320px;
+    max-width: 450px;
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+}
+.chat-box {
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #444;
+    padding: 10px;
+    background: #333;
+    border-radius: 5px;
+    text-align: left;
+}
+.chat-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+}
+.send-btn {
+    width: 100%;
+    padding: 10px;
+    background: #4CAF50;
+    border: none;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.send-btn:hover { background: #45a049; }
+
+/* Contact Form */
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background: #333;
+    color: white;
+}
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    background: #008CBA;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.submit-btn:hover { background: #0073a7; }
