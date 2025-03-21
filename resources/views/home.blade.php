@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cory Franklin | AI Web Innovator</title>
+    <title>Cory Franklin | Web Developer</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -22,9 +23,9 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+            color: #f1f5f9;
         }
 
-        /* Video Background - Matching Projects Page */
         .video-bg {
             position: fixed;
             top: 0;
@@ -32,11 +33,11 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.1;
+            opacity: 0.15;
             z-index: -1;
+            loading: lazy;
         }
 
-        /* Fallback Animation if Video Fails */
         .fallback-bg {
             position: fixed;
             top: 0;
@@ -45,28 +46,23 @@
             height: 100%;
             z-index: -2;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            overflow: hidden;
         }
 
-        .fallback-bg::before {
-            content: '';
-            position: absolute;
-            width: 150%;
-            height: 150%;
-            top: -25%;
-            left: -25%;
-            background: radial-gradient(circle, rgba(0, 202, 78, 0.2) 10%, transparent 50%);
-            animation: pulse 10s infinite ease-in-out;
-            opacity: 0.5;
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes pulse {
-            0% { transform: scale(0.9) translate(5%, 5%); opacity: 0; }
-            50% { transform: scale(1.1) translate(0, 0); opacity: 0.5; }
-            100% { transform: scale(0.9) translate(5%, 5%); opacity: 0; }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
         }
 
-        /* Hero Section */
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #00ca4e; }
+        }
+
         .hero {
             display: flex;
             flex-direction: column;
@@ -81,67 +77,85 @@
 
         .hero-content {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             border-radius: 20px;
-            padding: 3rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            max-width: 700px;
+            padding: 3.5rem;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+            max-width: 850px;
+            animation: fadeInUp 1s ease-out;
         }
 
         .profile-pic {
-            width: 180px;
-            height: 180px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid #00ca4e;
-            box-shadow: 0 0 30px rgba(0, 202, 78, 0.5);
-            margin-bottom: 1.5rem;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 6px solid #00ca4e;
+            box-shadow: 0 0 25px rgba(0, 202, 78, 0.4);
+            margin-bottom: 2rem;
+            transition: box-shadow 0.4s ease;
+            loading: lazy;
         }
 
         .profile-pic:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 40px rgba(0, 202, 78, 0.8);
+            box-shadow: 0 0 35px rgba(0, 202, 78, 0.7);
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: 3.75rem;
             font-weight: 700;
             color: white;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
-            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+            margin-bottom: 0.75rem;
         }
 
         .tagline {
-            font-size: 1.8rem;
-            color: #e2e8f0;
+            font-size: 1.9rem;
             font-weight: 500;
-            margin-bottom: 2rem;
+            color: #e2e8f0;
+            margin-bottom: 1.5rem;
+        }
+
+        .typewriter {
+            font-size: 1.6rem;
+            color: white;
+            font-weight: 500;
+            margin: 1rem 0;
+            overflow: hidden;
+            border-right: .15em solid #00ca4e;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end) forwards, blink-caret .75s step-end infinite;
+        }
+
+        .bio {
+            font-size: 1.15rem;
+            color: #cbd5e1;
+            max-width: 650px;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
         }
 
         .highlight {
             color: #00ca4e;
             font-weight: 600;
-            text-shadow: 0 0 10px rgba(0, 202, 78, 0.3);
         }
 
         .social-icons a {
             font-size: 2.2rem;
-            color: white;
-            margin: 0 1rem;
+            color: #e2e8f0;
+            margin: 0 1.2rem;
             transition: all 0.3s ease;
         }
 
         .social-icons a:hover {
-            transform: translateY(-5px);
-            color: #f1c40f;
+            color: #00ca4e;
+            transform: translateY(-4px);
         }
 
-        /* Navbar Styles - Matching Projects Page */
         .nav-container {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
+            backdrop-filter: blur(12px);
+            padding: 1.25rem 2.5rem;
             position: fixed;
             top: 0;
             left: 0;
@@ -152,21 +166,39 @@
         .nav-button {
             display: flex;
             align-items: center;
-            gap: 8px;
-            color: white;
+            gap: 10px;
+            color: #e2e8f0;
             text-transform: uppercase;
-            font-weight: 600;
-            padding: 8px 16px;
+            font-weight: 500;
+            padding: 10px 18px;
             border-radius: 8px;
             transition: all 0.3s ease;
         }
 
         .nav-button:hover {
             background: rgba(255, 255, 255, 0.2);
+            color: white;
         }
 
         .nav-button.active {
-            background: rgba(255, 255, 255, 0.2);
+            background: #00ca4e;
+            color: white;
+        }
+
+        .hire-button {
+            background: #00ca4e;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .hire-button:hover {
+            background: #00b140;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 202, 78, 0.5);
         }
 
         @media (max-width: 768px) {
@@ -182,37 +214,45 @@
                 left: 0;
                 width: 100%;
                 background: rgba(255, 255, 255, 0.1);
-                backdrop-filter: blur(10px);
-                padding: 1rem;
+                backdrop-filter: blur(12px);
+                padding: 1.5rem;
             }
 
             .hamburger {
                 display: block;
-                font-size: 1.5rem;
-                color: white;
+                font-size: 1.75rem;
+                color: #e2e8f0;
                 cursor: pointer;
             }
 
             .hero-content {
-                padding: 2rem;
+                padding: 2.5rem;
             }
 
             h1 {
-                font-size: 2.5rem;
+                font-size: 2.75rem;
             }
 
             .tagline {
-                font-size: 1.4rem;
+                font-size: 1.5rem;
+            }
+
+            .typewriter {
+                font-size: 1.3rem;
+            }
+
+            .bio {
+                font-size: 1rem;
             }
 
             .profile-pic {
-                width: 140px;
-                height: 140px;
+                width: 160px;
+                height: 160px;
             }
 
             .social-icons a {
-                font-size: 1.8rem;
-                margin: 0 0.75rem;
+                font-size: 1.9rem;
+                margin: 0 1rem;
             }
         }
 
@@ -223,14 +263,15 @@
 
             .nav-menu {
                 display: flex;
-                gap: 1rem;
+                gap: 1.5rem;
+                align-items: center;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Video Background - Matching Projects Page -->
-    <video autoplay loop muted class="video-bg">
+    <!-- Video Background -->
+    <video autoplay loop muted class="video-bg" aria-label="Background video showcasing abstract visuals">
         <source src="/videos/bgvid.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
@@ -238,8 +279,8 @@
     <!-- Fallback Animation -->
     <div class="fallback-bg"></div>
 
-    <!-- Top Navigation - Matching Projects Page -->
-    <nav class="nav-container" x-data="{ open: false }">
+    <!-- Top Navigation -->
+    <nav class="nav-container" x-data="{ open: false }" @click.outside="open = false">
         <div class="flex justify-between items-center max-w-7xl mx-auto">
             <div class="hamburger" @click="open = !open">
                 <i class="fas fa-bars"></i>
@@ -257,6 +298,7 @@
                 <a href="resume" class="nav-button" @click="open = false">
                     <i class="fas fa-file-alt"></i> Resume
                 </a>
+                <a href="contact" class="hire-button" @click="open = false">Hire Me</a>
             </div>
         </div>
     </nav>
@@ -264,15 +306,25 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <img src="/images/pfp.png" alt="Cory Franklin" class="profile-pic">
+            <img src="/images/pfp.png" alt="Cory Franklin, Web Developer" class="profile-pic" data-tilt>
             <h1>Cory Franklin</h1>
-            <p class="tagline">Building <span class="highlight">AI-Powered Web Solutions</span></p>
+            <p class="typewriter">Creating custom websites that stand out.</p>
+            <p class="bio">Unlike standard CMS-built websites, my custom solutions are designed from the ground up to meet your specific needs, ensuring a unique and effective online presence. Let’s build your next project together.</p>
             <div class="social-icons">
-                <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+                <a href="https://twitter.com" target="_blank" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a>
+                <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
             </div>
         </div>
     </section>
+
+    <script>
+        // Initialize Vanilla Tilt with subtle settings
+        VanillaTilt.init(document.querySelector(".profile-pic"), {
+            max: 10,
+            speed: 400,
+            glare: false
+        });
+    </script>
 </body>
 </html>
