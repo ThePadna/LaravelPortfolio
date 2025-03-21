@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects | My Portfolio</title>
+    <title>Projects | Cory Franklin</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -28,6 +28,7 @@
             object-fit: cover;
             opacity: 0.1;
             z-index: -1;
+            loading: lazy;
         }
 
         .project-card {
@@ -76,11 +77,10 @@
             background: #2ecc71;
         }
 
-        /* Navbar Styles */
         .nav-container {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
+            backdrop-filter: blur(12px);
+            padding: 1.25rem 2.5rem;
             position: fixed;
             top: 0;
             left: 0;
@@ -91,21 +91,33 @@
         .nav-button {
             display: flex;
             align-items: center;
-            gap: 8px;
-            color: white;
+            gap: 10px;
+            color: #e2e8f0;
             text-transform: uppercase;
-            font-weight: 600;
-            padding: 8px 16px;
+            font-weight: 500;
+            padding: 10px 18px;
             border-radius: 8px;
+            text-decoration: none;
             transition: all 0.3s ease;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(0, 202, 78, 0.2), rgba(255, 255, 255, 0.1));
+            background-size: 200% 100%;
         }
 
         .nav-button:hover {
-            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            background-position: 100% 50%;
+            animation: gradientHover 1.5s ease infinite;
         }
 
         .nav-button.active {
-            background: rgba(255, 255, 255, 0.2);
+            background: #00ca4e;
+            color: white;
+        }
+
+        @keyframes gradientHover {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         @media (max-width: 768px) {
@@ -121,14 +133,14 @@
                 left: 0;
                 width: 100%;
                 background: rgba(255, 255, 255, 0.1);
-                backdrop-filter: blur(10px);
-                padding: 1rem;
+                backdrop-filter: blur(12px);
+                padding: 1.5rem;
             }
 
             .hamburger {
                 display: block;
-                font-size: 1.5rem;
-                color: white;
+                font-size: 1.75rem;
+                color: #e2e8f0;
                 cursor: pointer;
             }
         }
@@ -140,7 +152,8 @@
 
             .nav-menu {
                 display: flex;
-                gap: 1rem;
+                gap: 1.5rem;
+                align-items: center;
             }
         }
     </style>
@@ -148,11 +161,11 @@
 <body>
     <!-- Video Background -->
     <video autoplay loop muted class="video-bg">
-        <source src="/videos/bgvid.mp4" type="video/mp4">
+        <source src="{{ asset('videos/bgvid.mp4') }}" type="video/mp4">
     </video>
 
     <!-- Top Navigation -->
-    <nav class="nav-container" x-data="{ open: false }">
+    <nav class="nav-container" x-data="{ open: false }" @click.outside="open = false">
         <div class="flex justify-between items-center max-w-7xl mx-auto">
             <div class="hamburger" @click="open = !open">
                 <i class="fas fa-bars"></i>
@@ -161,14 +174,11 @@
                 <a href="/" class="nav-button" @click="open = false">
                     <i class="fas fa-user"></i> About
                 </a>
-                <a href="projects" class="nav-button active" @click="open = false">
+                <a href="/projects" class="nav-button active" @click="open = false">
                     <i class="fas fa-code"></i> Projects
                 </a>
-                <a href="contact" class="nav-button" @click="open = false">
+                <a href="/contact" class="nav-button" @click="open = false">
                     <i class="fas fa-envelope"></i> Contact
-                </a>
-                <a href="resume" class="nav-button" @click="open = false">
-                    <i class="fas fa-file-alt"></i> Resume
                 </a>
             </div>
         </div>

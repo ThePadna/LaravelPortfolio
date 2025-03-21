@@ -63,14 +63,20 @@
             50% { border-color: #00ca4e; }
         }
 
+        @keyframes gradientHover {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         .hero {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             text-align: center;
-            padding: 2rem;
+            padding: 6rem 2rem 2rem; /* Added top padding to clear navbar */
             position: relative;
             z-index: 10;
         }
@@ -79,7 +85,7 @@
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(12px);
             border-radius: 20px;
-            padding: 3.5rem;
+            padding: 2.5rem; /* Reduced padding to keep card compact */
             box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
             max-width: 850px;
             animation: fadeInUp 1s ease-out;
@@ -92,7 +98,7 @@
             object-fit: cover;
             border: 6px solid #00ca4e;
             box-shadow: 0 0 25px rgba(0, 202, 78, 0.4);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem; /* Reduced margin */
             transition: box-shadow 0.4s ease;
             loading: lazy;
         }
@@ -113,7 +119,7 @@
             font-size: 1.9rem;
             font-weight: 500;
             color: #e2e8f0;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem; /* Reduced margin */
         }
 
         .typewriter {
@@ -131,7 +137,7 @@
             font-size: 1.15rem;
             color: #cbd5e1;
             max-width: 650px;
-            margin-bottom: 2.5rem;
+            margin-bottom: 1.5rem; /* Reduced margin */
             line-height: 1.7;
         }
 
@@ -172,12 +178,16 @@
             font-weight: 500;
             padding: 10px 18px;
             border-radius: 8px;
+            text-decoration: none;
             transition: all 0.3s ease;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(0, 202, 78, 0.2), rgba(255, 255, 255, 0.1));
+            background-size: 200% 100%;
         }
 
         .nav-button:hover {
-            background: rgba(255, 255, 255, 0.2);
             color: white;
+            background-position: 100% 50%;
+            animation: gradientHover 1.5s ease infinite;
         }
 
         .nav-button.active {
@@ -186,12 +196,14 @@
         }
 
         .hire-button {
+            display: inline-block;
             background: #00ca4e;
             color: white;
             padding: 12px 24px;
             border-radius: 8px;
             font-weight: 600;
             text-transform: uppercase;
+            text-decoration: none;
             transition: all 0.3s ease;
         }
 
@@ -225,8 +237,12 @@
                 cursor: pointer;
             }
 
+            .hero {
+                padding-top: 5rem; /* Adjusted for mobile */
+            }
+
             .hero-content {
-                padding: 2.5rem;
+                padding: 2rem; /* Slightly reduced for mobile */
             }
 
             h1 {
@@ -272,7 +288,7 @@
 <body>
     <!-- Video Background -->
     <video autoplay loop muted class="video-bg" aria-label="Background video showcasing abstract visuals">
-        <source src="/videos/bgvid.mp4" type="video/mp4">
+        <source src="{{ asset('videos/bgvid.mp4') }}" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
@@ -286,19 +302,15 @@
                 <i class="fas fa-bars"></i>
             </div>
             <div class="nav-menu" :class="{ 'open': open }">
-                <a href="about" class="nav-button active" @click="open = false">
+                <a href="/" class="nav-button active" @click="open = false">
                     <i class="fas fa-user"></i> About
                 </a>
-                <a href="projects" class="nav-button" @click="open = false">
+                <a href="/projects" class="nav-button" @click="open = false">
                     <i class="fas fa-code"></i> Projects
                 </a>
-                <a href="contact" class="nav-button" @click="open = false">
+                <a href="/contact" class="nav-button" @click="open = false">
                     <i class="fas fa-envelope"></i> Contact
                 </a>
-                <a href="resume" class="nav-button" @click="open = false">
-                    <i class="fas fa-file-alt"></i> Resume
-                </a>
-                <a href="contact" class="hire-button" @click="open = false">Hire Me</a>
             </div>
         </div>
     </nav>
@@ -306,11 +318,12 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <img src="/images/pfp.png" alt="Cory Franklin, Web Developer" class="profile-pic" data-tilt>
+            <img src="{{ asset('images/pfp.png') }}" alt="Cory Franklin, Web Developer" class="profile-pic" data-tilt>
             <h1>Cory Franklin</h1>
             <p class="typewriter">Creating custom websites that stand out.</p>
             <p class="bio">Unlike standard CMS-built websites, my custom solutions are designed from the ground up to meet your specific needs, ensuring a unique and effective online presence. Let’s build your next project together.</p>
-            <div class="social-icons">
+            <a href="/hireme" class="hire-button">Hire Me</a>
+            <div class="social-icons mt-4">
                 <a href="https://github.com" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
                 <a href="https://twitter.com" target="_blank" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a>
                 <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
@@ -319,7 +332,6 @@
     </section>
 
     <script>
-        // Initialize Vanilla Tilt with subtle settings
         VanillaTilt.init(document.querySelector(".profile-pic"), {
             max: 10,
             speed: 400,
